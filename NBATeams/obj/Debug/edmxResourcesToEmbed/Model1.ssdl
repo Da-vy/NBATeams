@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NBATeamsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Coaches">
+    <Key>
+      <PropertyRef Name="CoachId" />
+    </Key>
+    <Property Name="CoachId" Type="int" Nullable="false" />
+    <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TeamID" Type="int" />
+  </EntityType>
+  <EntityType Name="Spelers">
+    <Key>
+      <PropertyRef Name="SpelerId" />
+    </Key>
+    <Property Name="SpelerId" Type="int" Nullable="false" />
+    <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TeamID" Type="int" />
+  </EntityType>
+  <EntityType Name="Teams">
+    <Key>
+      <PropertyRef Name="TeamId" />
+    </Key>
+    <Property Name="TeamId" Type="int" Nullable="false" />
+    <Property Name="Team" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Coaches_ToTable">
+    <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+    <End Role="Coaches" Type="Self.Coaches" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="TeamId" />
+      </Principal>
+      <Dependent Role="Coaches">
+        <PropertyRef Name="TeamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Spelers_ToTable">
+    <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+    <End Role="Spelers" Type="Self.Spelers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="TeamId" />
+      </Principal>
+      <Dependent Role="Spelers">
+        <PropertyRef Name="TeamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NBATeamsModelStoreContainer">
+    <EntitySet Name="Coaches" EntityType="Self.Coaches" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Spelers" EntityType="Self.Spelers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Coaches_ToTable" Association="Self.FK_Coaches_ToTable">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Coaches" EntitySet="Coaches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Spelers_ToTable" Association="Self.FK_Spelers_ToTable">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Spelers" EntitySet="Spelers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="NBATeamsModelStoreContainer" CdmEntityContainer="NBATeamsEntities2">
+    <EntitySetMapping Name="Coaches">
+      <EntityTypeMapping TypeName="NBATeamsModel.Coaches">
+        <MappingFragment StoreEntitySet="Coaches">
+          <ScalarProperty Name="CoachId" ColumnName="CoachId" />
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+          <ScalarProperty Name="TeamID" ColumnName="TeamID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Spelers">
+      <EntityTypeMapping TypeName="NBATeamsModel.Spelers">
+        <MappingFragment StoreEntitySet="Spelers">
+          <ScalarProperty Name="SpelerId" ColumnName="SpelerId" />
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+          <ScalarProperty Name="TeamID" ColumnName="TeamID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teams">
+      <EntityTypeMapping TypeName="NBATeamsModel.Teams">
+        <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+          <ScalarProperty Name="Team" ColumnName="Team" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

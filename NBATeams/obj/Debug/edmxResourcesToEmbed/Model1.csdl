@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NBATeamsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Coaches">
+    <Key>
+      <PropertyRef Name="CoachId" />
+    </Key>
+    <Property Name="CoachId" Type="Int32" Nullable="false" />
+    <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TeamID" Type="Int32" />
+    <NavigationProperty Name="Team" Relationship="Self.FK_Coaches_ToTable" FromRole="Coaches" ToRole="Teams" />
+  </EntityType>
+  <EntityType Name="Spelers">
+    <Key>
+      <PropertyRef Name="SpelerId" />
+    </Key>
+    <Property Name="SpelerId" Type="Int32" Nullable="false" />
+    <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TeamID" Type="Int32" />
+    <NavigationProperty Name="Team" Relationship="Self.FK_Spelers_ToTable" FromRole="Spelers" ToRole="Teams" />
+  </EntityType>
+  <EntityType Name="Teams">
+    <Key>
+      <PropertyRef Name="TeamId" />
+    </Key>
+    <Property Name="TeamId" Type="Int32" Nullable="false" />
+    <Property Name="Team" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Coaches" Relationship="Self.FK_Coaches_ToTable" FromRole="Teams" ToRole="Coaches" />
+    <NavigationProperty Name="Spelers" Relationship="Self.FK_Spelers_ToTable" FromRole="Teams" ToRole="Spelers" />
+  </EntityType>
+  <Association Name="FK_Coaches_ToTable">
+    <End Role="Teams" Type="NBATeamsModel.Teams" Multiplicity="0..1" />
+    <End Role="Coaches" Type="NBATeamsModel.Coaches" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="TeamId" />
+      </Principal>
+      <Dependent Role="Coaches">
+        <PropertyRef Name="TeamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Spelers_ToTable">
+    <End Role="Teams" Type="NBATeamsModel.Teams" Multiplicity="0..1" />
+    <End Role="Spelers" Type="NBATeamsModel.Spelers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="TeamId" />
+      </Principal>
+      <Dependent Role="Spelers">
+        <PropertyRef Name="TeamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NBATeamsEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Coaches" EntityType="NBATeamsModel.Coaches" />
+    <EntitySet Name="Spelers" EntityType="NBATeamsModel.Spelers" />
+    <EntitySet Name="Teams" EntityType="NBATeamsModel.Teams" />
+    <AssociationSet Name="FK_Coaches_ToTable" Association="Self.FK_Coaches_ToTable">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Coaches" EntitySet="Coaches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Spelers_ToTable" Association="Self.FK_Spelers_ToTable">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Spelers" EntitySet="Spelers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
